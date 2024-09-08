@@ -1,0 +1,46 @@
+<app-content-page>
+  <div class="image-container">
+    <img class="form-logo" src="assets/images/wallet_logo.png" />
+    <h3>your trusted virtual wallet</h3>
+  </div>
+  <h2>Welcome back!</h2>
+  <form action="" (ngSubmit)="submitForm()" [formGroup]="form">
+    <label for="first"> Email: </label>
+    <input
+      type="text"
+      id="name"
+      formControlName="email"
+      placeholder="Enter your Email"
+      required
+    />
+
+    <label for="password"> Password: </label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="Enter your Password"
+      required
+    />
+
+    <div class="wrap">
+      <button type="submit" [disabled]="!form.valid">Register</button>
+    </div>
+  </form>
+  <h2 class="register-option"><span>Or Register With</span></h2>
+  <div class="auth-options">
+    <div id="g_id_signin" class="google-sign"></div>
+    <button class="facebook-login">
+      <img
+        src="assets/images/facebook-logo.png"
+        alt="Facebook Logo"
+        class="facebook-icon"
+      />
+      Register with Facebook
+    </button>
+    <p class="login-option">
+      Already have an account?
+      <a href="#" style="text-decoration: none"> Sign In here </a>
+    </p>
+  </div>
+</app-content-page>
