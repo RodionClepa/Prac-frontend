@@ -1,0 +1,257 @@
+/* Ensure container takes full height */
+.background-container {
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(235, 255, 245, 1); /* Light green */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden; /* Prevent overflow in flex container */
+}
+
+/* Header */
+.header {
+    position: relative; /* Required for absolute positioning of child elements */
+    background-color: rgba(73, 169, 129, 1); /* Green background */
+    width: 100%;
+    height: 100px;
+    padding: 10px 15px; /* Adjusted padding for better responsiveness */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+/* Logo Container */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the logo inside the container */
+    flex-grow: 1; /* Ensure it takes up remaining space */
+}
+
+.logo-container img {
+    width: 20vw; /* Responsive size based on viewport width */
+    max-width: 200px; /* Maximum size */
+    min-width: 150px; /* Minimum size */
+    height: auto;
+}
+
+/* Wallet Container (Button and Arrow) */
+.wallet-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px; /* Adjusted right position */
+    display: flex;
+    align-items: center;
+    cursor: pointer; /* Indicate clickable area */
+}
+
+/* Wallet Button */
+.wallet-button {
+    background-color: transparent;
+    border: none;
+    color: #fffdfd; /* Adjust text color if needed */
+    font-size: 14px; /* Adjust font size for better responsiveness */
+    font-family: 'Inter-Medium', sans-serif;
+    cursor: pointer;
+    padding-right: 10px;
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Arrow Icon */
+.arrow-icon {
+    width: 18px; /* Adjusted width */
+    height: 18px; /* Adjusted height */
+    margin-left: 2px;
+    transition: transform 0.3s ease; /* Smooth transition for movement */
+}
+
+/* Hover Effect */
+.wallet-container:hover .arrow-icon {
+    transform: translateX(3px); /* Move the arrow to the right */
+}
+
+.wallet-container:hover .wallet-button {
+    color: rgb(185, 254, 219); /* Change button text color on hover */
+}
+
+/* Notification Button */
+.notification-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute; /* Absolute positioning within the header */
+    top: 10px; /* Distance from the top */
+    right: 15px; /* Adjusted right position */
+}
+
+.notification-button .icon {
+    width: 40px; /* Adjusted width */
+    height: 40px; /* Adjusted height */
+}
+
+/* Card Section */
+.card-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.card-image {
+    width: 90%;
+    max-width: 300px; /* Adjusted maximum width */
+    border-radius: 10px;
+}
+
+/* Card Info Button */
+.card-info-button {
+    background-color: transparent;
+    border: 2px solid rgba(73, 169, 129, 1); /* Border color */
+    color: rgba(73, 169, 129, 1); /* Text color */
+    font-size: 14px; /* Adjusted font size */
+    font-family: 'Inter-Medium', sans-serif;
+    cursor: pointer;
+    padding: 8px 16px; /* Adjusted padding */
+    border-radius: 25px;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none; /* Remove underline if any */
+    display: inline-block;
+}
+
+.card-info-button:hover {
+    background-color: rgb(185, 254, 219); /* Light background on hover */
+}
+
+/* Transactions Section */
+.transactions-section {
+    padding: 15px; /* Adjusted padding */
+    width: 100%;
+    max-height: 400px; /* Set a max-height to limit the section's height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scroll-behavior: smooth;
+}
+
+.transactions-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.transactions-section::-webkit-scrollbar-thumb {
+    background-color: rgba(73, 169, 129, 1); /* Match the theme */
+    border-radius: 10px;
+}
+
+.transactions-title {
+    font-size: 18px; /* Adjusted font size */
+    color: black;
+    margin-left: 10px; /* Adjusted margin */
+}
+
+/* Transaction Item */
+.transaction-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(73, 169, 129, 1);
+    border-radius: 30px;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-left: 10px; /* Adjusted margin */
+    margin-right: 10px; /* Adjusted margin */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+/* Transaction Details */
+.transaction-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px; /* Adjust margin if needed */
+}
+
+/* Transaction Title */
+.transaction-title {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Transaction Date */
+.transaction-date {
+    color: white;
+    font-size: 12px;
+    margin-top: 2px; /* Adjust space between title and date */
+}
+
+/* Transaction Icon */
+.transaction-icon {
+    width: 60px; /* Adjusted width */
+    height: 60px; /* Adjusted height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: white;
+    overflow: hidden;
+}
+
+/* Transaction Icon Image */
+.transaction-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Transaction Amount */
+.transaction-amount {
+    color: white;
+    font-size: 16px; /* Adjusted font size */
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 25px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px; /* Ensure consistent size */
+    text-align: center; /* Center text within the amount container */
+}
+
+/* Responsive Design: Adjustments for mobile */
+@media only screen and (max-width: 430px) {
+    .header {
+        height: 100px; /* Adjust height for smaller screens */
+        padding: 10px 10px; /* Adjust padding */
+    }
+
+    .logo-container img {
+        width: 35vw;
+        max-width: 200 px; /* Adjust for smaller screens */
+    }
+
+    .wallet-button {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .card-image {
+        width: 85%;
+    }
+
+    .transaction-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .transaction-amount {
+        font-size: 14px;
+        padding: 4px 8px;
+        min-width: 70px; /* Adjust for smaller screens */
+    }
+
+    .transactions-title {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+}
