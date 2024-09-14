@@ -29,12 +29,18 @@ export class FacebookAuthService {
     });
   }
 
-  handleFacebookLogin() {
-    (window as any).FB.login((response: any) => {
-      console.log('FB.login callback');
-      console.log(response);
-      return response;
-    }, { scope: 'email' });
+  handleFacebookLogin(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      (window as any).FB.login((response: any) => {
+        if (response.authResponse) {
+          console.log('FB.login successful', response);
+          resolve(response.authResponse);  // Resolve with the login response
+        } else {
+          console.log('FB.login failed', response);
+          reject(response);
+        }
+      }, { scope: 'email' });
+    });
   }
 
   fetchFacebookUserInfo() {

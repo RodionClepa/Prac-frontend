@@ -1,28 +1,34 @@
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { GoogleAuthService } from '../../../shared/services/social-auth/google-auth.service';
 import { FacebookAuthService } from '../../../shared/services/social-auth/facebook-auth.service';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ContentPageComponent } from "../shared/content-page/content-page.component";
+import { AuthService } from '../../../shared/services/auth.service';
+import { first } from 'rxjs';
+import { AuthMethods } from '../shared/types/auth-methods.dictionary';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, ContentPageComponent],
+  imports: [ReactiveFormsModule, ContentPageComponent, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
 
   form: FormGroup;
-  
+  responseMessage: string = "";
+  isError: boolean = false;
+
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
-  public googleService: GoogleAuthService,
-  public facebookService: FacebookAuthService,
-  private fb: NonNullableFormBuilder) {
+    public googleService: GoogleAuthService,
+    public facebookService: FacebookAuthService,
+    private fb: NonNullableFormBuilder,
+    private authService: AuthService) {
     this.form = this.fb.group({
+      username: this.fb.control('', [Validators.required]),
       email: this.fb.control('', [Validators.required, Validators.email.bind(Validators)]),
-      password: this.fb.control('', [Validators.required.bind(Validators)]),
     });
   }
 
@@ -34,18 +40,48 @@ export class RegisterComponent {
   }
 
   handleGoogleCredentialResponse(response: any) {
-    console.log(response)
-    console.log('ID Token:', response.credential);
-    const responsePayload = this.googleService.decodeJwtResponse(response.credential);
-    console.log('Full Name: ' + responsePayload.name);
-    console.log('Given Name: ' + responsePayload.given_name);
-    console.log('Family Name: ' + responsePayload.family_name);
-    console.log("Image URL: " + responsePayload.picture);
-    console.log("Email: " + responsePayload.email);
+    const token: string = response.credential;
+    this.authService.validateSocialToken(token, AuthMethods.GOOGLE).pipe(first()).subscribe({
+      next: (response) => {
+        this.authService.setLoginParams(response as string)
+      },
+      error: (error) => {
+        console.error(error);
+        if (error.status === 403) {
+          this.responseMessage = 'Something Went Wrong';
+        }
+
+        else if (error.status === 409) {
+          this.responseMessage = 'Account already exists';
+        }
+        this.isError = true;
+      }
+    });
   }
 
-  handleFacebookLogin() {
-    const res = this.facebookService.handleFacebookLogin();
+  async handleFacebookLogin() {
+    try {
+      const res = await this.facebookService.handleFacebookLogin();
+      const facebookToken = res.accessToken;
+      this.authService.validateSocialToken(facebookToken, AuthMethods.FACEBOOK).pipe(first()).subscribe({
+        next: (response) => {
+          this.authService.setLoginParams(response as string)
+        },
+        error: (error) => {
+          console.error(error);
+          if (error.status === 403) {
+            this.responseMessage = 'Something Went Wrong';
+          }
+
+          else if (error.status === 409) {
+            this.responseMessage = 'Account already exists';
+          }
+          this.isError = true;
+        }
+      });
+    } catch (error) {
+      console.error('Error fetching Facebook user info:', error);
+    }
   }
 
   submitForm() {
@@ -53,5 +89,19 @@ export class RegisterComponent {
       return;
     }
     console.log(this.form.getRawValue());
+    const { email } = this.form.getRawValue();
+    this.isError = false;
+    this.authService.checkEmail(email).pipe(first()).subscribe({
+      next: (response) => {
+        this.responseMessage = "Check your inbox to confirm your email.";
+      },
+      error: (error) => {
+        console.error(error);
+        if (error.status === 409) {
+          this.responseMessage = "Account already exists.";
+        }
+        this.isError = true;
+      }
+    });
   }
 }

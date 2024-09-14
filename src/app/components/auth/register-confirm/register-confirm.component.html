@@ -1,0 +1,32 @@
+<app-content-page>
+  <div class="image-container">
+    <img class="form-logo" src="assets/images/wallet_logo.png" />
+    <h3>your trusted virtual wallet</h3>
+  </div>
+  <h2>Last Step</h2>
+  <form action="" (ngSubmit)="register()" [formGroup]="form">
+    <label for="password"> Password: </label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      placeholder="Enter your Password"
+      required
+    />
+
+    <label for="confirmationPassword"> Confirmation Password: </label>
+    <input
+      type="confirmationPassword"
+      id="confirmationPassword"
+      formControlName="confirmationPassword"
+      placeholder="Enter your Password"
+      required
+    />
+    <div class="error-input" *ngIf="passwordMismatch">
+      Passwords do not match
+    </div>
+    <div class="wrap">
+      <button type="submit" [disabled]="!form.valid">Register</button>
+    </div>
+  </form>
+</app-content-page>

@@ -24,7 +24,7 @@ export class GoogleAuthService {
         auto_prompt: false,
         ux_mode: 'popup',
         context: 'signin',
-        prompt_parent_id: '', // Prevent "Sign in As" prompt
+        prompt_parent_id: '',
         prompt: 'none'
       });
 
