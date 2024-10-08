@@ -8,7 +8,7 @@ export class ApisService {
   constructor() { }
 
   private api(): string {
-    return 'api';
+    return 'http://localhost:8080';
   }
 
   private auth(): string {
@@ -28,6 +28,6 @@ export class ApisService {
   }
 
   validateToken(): string {
-    return `${this.auth()}/validate-token`
+    return `${this.api()}/api/me`
   }
 }

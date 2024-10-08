@@ -4,6 +4,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GoogleAuthService } from '../../../shared/services/social-auth/google-auth.service';
 import { FacebookAuthService } from '../../../shared/services/social-auth/facebook-auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,9 @@ export class LoginComponent {
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     public googleService: GoogleAuthService,
     public facebookService: FacebookAuthService,
-    private fb: NonNullableFormBuilder) {
+    private fb: NonNullableFormBuilder,
+    private authService: AuthService,
+    private router: Router) {
     this.form = this.fb.group({
       email: this.fb.control('', [Validators.required, Validators.email.bind(Validators)]),
       password: this.fb.control('', [Validators.required.bind(Validators)]),
@@ -52,5 +56,16 @@ export class LoginComponent {
       return;
     }
     console.log(this.form.getRawValue());
+    const { email, password } = this.form.getRawValue();
+    this.authService.login(email, password).subscribe({
+      next: (response: any) => {
+        console.log(response.token)
+        localStorage.setItem("token", response.token);
+        this.router.navigate(['/user/my-profile']);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 }

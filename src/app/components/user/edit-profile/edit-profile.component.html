@@ -1,0 +1,45 @@
+<div class="edit-container">
+  <div class="edit-info">
+    <h2>Edit Your Information</h2>
+
+    <form [formGroup]="editInfoForm" (ngSubmit)="onSubmit()">
+      <div class="field">
+        <label for="username">Username</label>
+        <input type="text" id="username" formControlName="username" required />
+        <div
+          *ngIf="
+            editInfoForm.get('username')?.invalid &&
+            editInfoForm.get('username')?.touched
+          "
+        >
+          <small *ngIf="editInfoForm.get('username')?.errors?.['required']"
+            >Username is required.</small
+          >
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">E-mail address</label>
+        <input type="email" id="email" formControlName="email" required />
+        <div
+          *ngIf="
+            editInfoForm.get('email')?.invalid &&
+            editInfoForm.get('email')?.touched
+          "
+        >
+          <small *ngIf="editInfoForm.get('email')?.errors?.['required']"
+            >Email is required.</small
+          >
+          <small *ngIf="editInfoForm.get('email')?.errors?.['email']"
+            >Invalid email format.</small
+          >
+        </div>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Save Changes</button>
+        <button type="button" (click)="goBack()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

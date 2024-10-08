@@ -1,0 +1,105 @@
+/* Header */
+.header {
+  position: relative; /* Required for absolute positioning of child elements */
+  background-color: rgba(73, 169, 129, 1); /* Green background */
+  width: 100%;
+  height: 100px;
+  padding: 10px 15px; /* Adjusted padding for better responsiveness */
+  box-sizing: border-box; /* Include padding in the width calculation */
+  display: flex;
+  align-items: center; /* Center vertically */
+}
+
+/* Logo Container */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the logo inside the container */
+  flex-grow: 1; /* Ensure it takes up remaining space */
+}
+
+.logo-container img {
+  width: 20vw; /* Responsive size based on viewport width */
+  max-width: 100px; /* Maximum size */
+  min-width: 100px; /* Minimum size */
+  height: auto;
+}
+
+/* Notification Button */
+.notification-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute; /* Absolute positioning within the header */
+  top: 10px; /* Distance from the top */
+  right: 15px; /* Adjusted right position */
+}
+
+.notification-button .icon {
+  width: 40px; /* Adjusted width */
+  height: 40px; /* Adjusted height */
+}
+
+/* Wallet Container (Button and Arrow) */
+.wallet-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px; /* Adjusted right position */
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Indicate clickable area */
+}
+
+/* Wallet Button */
+.wallet-button {
+  background-color: transparent;
+  border: none;
+  color: #fffdfd; /* Adjust text color if needed */
+  font-size: 14px; /* Adjust font size for better responsiveness */
+  font-family: "Inter-Medium", sans-serif;
+  cursor: pointer;
+  padding-right: 10px;
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover Effect */
+.wallet-container:hover .arrow-icon {
+  transform: translateX(3px); /* Move the arrow to the right */
+}
+
+.wallet-container:hover .wallet-button {
+  color: rgb(185, 254, 219); /* Change button text color on hover */
+}
+
+.wallet-button {
+  font-size: 14px; /* Adjust font size for smaller screens */
+}
+
+/* Arrow Icon */
+.arrow-icon {
+  width: 18px; /* Adjusted width */
+  height: 18px; /* Adjusted height */
+  margin-left: 2px;
+  transition: transform 0.3s ease; /* Smooth transition for movement */
+}
+
+.profile-container {
+    cursor: pointer;
+    img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Responsive Design: Adjustments for mobile */
+@media only screen and (max-width: 430px) {
+  .header {
+    height: 100px; /* Adjust height for smaller screens */
+    padding: 10px 10px; /* Adjust padding */
+  }
+
+  .logo-container img {
+    width: 35vw;
+    max-width: 200 px; /* Adjust for smaller screens */
+  }
+}

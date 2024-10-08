@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApisService } from './apis.service';
 import { AuthMethods } from '../../components/auth/shared/types/auth-methods.dictionary';
@@ -15,8 +15,8 @@ export class AuthService {
     private router: Router
   ) { }
 
-  checkEmail(email: string) {
-    return this.http.post(this.apis.register(), email);
+  checkEmail(username: string, email: string, password: string) {
+    return this.http.post(this.apis.register(), {username, email, password}, { responseType: 'text' });
   }
 
   validateSocialToken(token: string, authMethod: AuthMethods) {
@@ -24,11 +24,18 @@ export class AuthService {
   }
 
   setLoginParams(token: string) {
-    sessionStorage.setItem("token", token);
-    this.router.navigate(["/user/dashboard"]);
+    localStorage.setItem("token", token);
+    this.router.navigate(["/user/my-profile"]);
   }
 
-  register(email: string, uuid: string, password: string) {
-    return this.http.post(this.apis.register(), {email, uuid, password});
+  register(uuid: string, email: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apis.registerConfirm(), {uuid, email}, {headers});
   }
+
+  login(email: string, password: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post(this.apis.login(), {email, password}, {headers});
+  }
+
 }

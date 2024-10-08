@@ -1,0 +1,53 @@
+<div class="container">
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <img src="assets/icons/profile-user.svg" alt="Profile Picture" />
+    <h1>John Doe</h1>
+  </div>
+
+  <!-- Account Details Section -->
+  <div class="details-section">
+    <!-- Personal Information -->
+    <div class="details-card">
+      <h3>Personal Information</h3>
+      <p>Name: John Doe</p>
+      <p>Email: john.doeexample.com</p>
+    </div>
+
+    <!-- Account Settings -->
+    <div class="details-card">
+      <h3>Account Settings</h3>
+      <p>Future Versions</p>
+      <!-- <p>Subscription Plan: Gold</p>
+      <p>Account Status: Active</p>
+      <p>Password: *********</p> -->
+    </div>
+
+    <!-- Transaction History -->
+    <div class="details-card">
+      <div class="top-container">
+        <div class="left-side"><h3>Transaction History</h3></div>
+        <div class="right-side"><a [routerLink]="['/user/transactions']">Open Full</a></div>
+      </div>
+      <p>Transaction 1: $1000 - 01/10/2024</p>
+      <p>Transaction 2: $500 - 02/15/2024</p>
+      <p>Transaction 3: $250 - 03/01/2024</p>
+    </div>
+
+    <div class="details-card">
+      <div class="top-container">
+        <div class="left-side"><h3>My cards</h3></div>
+        <div class="right-side"><a>Open Full</a></div>
+      </div>
+      <p>Card 4542</p>
+      <p>Card 3414</p>
+      <p>Card 3114</p>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="action-buttons">
+    <a class="btn" [routerLink]="['/user/edit-profile']">Edit Profile</a>
+    <a class="btn">Logout</a>
+  </div>
+</div>

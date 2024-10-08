@@ -2,7 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { GoogleAuthService } from '../../../shared/services/social-auth/google-auth.service';
 import { FacebookAuthService } from '../../../shared/services/social-auth/facebook-auth.service';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ContentPageComponent } from "../shared/content-page/content-page.component";
 import { AuthService } from '../../../shared/services/auth.service';
 import { first } from 'rxjs';
@@ -29,7 +29,31 @@ export class RegisterComponent {
     this.form = this.fb.group({
       username: this.fb.control('', [Validators.required]),
       email: this.fb.control('', [Validators.required, Validators.email.bind(Validators)]),
+      password: this.fb.control('', [
+        Validators.required,
+        Validators.minLength(8),
+        this.strongPasswordValidator
+      ]),
     });
+  }
+
+  strongPasswordValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+
+    if (!value) {
+      return null;
+    }
+
+    const hasUpperCase = /[A-Z]/.test(value);
+    const hasLowerCase = /[a-z]/.test(value);
+    const hasNumber = /[0-9]/.test(value);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+    const valid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+
+    return !valid
+      ? { strongPassword: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.' }
+      : null;
   }
 
   ngAfterViewInit(): void {
@@ -89,9 +113,9 @@ export class RegisterComponent {
       return;
     }
     console.log(this.form.getRawValue());
-    const { email } = this.form.getRawValue();
+    const { username, email, password } = this.form.getRawValue();
     this.isError = false;
-    this.authService.checkEmail(email).pipe(first()).subscribe({
+    this.authService.checkEmail(username, email, password).pipe(first()).subscribe({
       next: (response) => {
         this.responseMessage = "Check your inbox to confirm your email.";
       },
