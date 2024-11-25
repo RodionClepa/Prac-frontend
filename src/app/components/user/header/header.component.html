@@ -9,9 +9,11 @@
 
   <!-- Wallet Container (Button and Arrow) -->
   <div class="wallet-container">
-    <button class="wallet-button" onclick="goBack()">
-      Go back to your wallet
-    </button>
+    <a [routerLink]="['/user', 'add-card']">Add Card</a>
+    <a [routerLink]="['/user', 'transactions']">Transactions</a>
+    <a [routerLink]="['/user', 'my-profile']">My Profile</a>
+    <a [routerLink]="['/user', 'edit-profile']">Edit Profile</a>
+    <a [routerLink]="['/user', 'add-transaction']">Add Transaction</a>
     <img src="assets/images/arrow-right.png" alt="Arrow" class="arrow-icon" />
   </div>
 

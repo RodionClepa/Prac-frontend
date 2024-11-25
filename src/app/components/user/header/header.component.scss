@@ -46,8 +46,13 @@
   bottom: 10px;
   right: 10px; /* Adjusted right position */
   display: flex;
+  gap: 8px;
   align-items: center;
   cursor: pointer; /* Indicate clickable area */
+
+  a {
+    font-size: 12px;
+  }
 }
 
 /* Wallet Button */

@@ -2,16 +2,18 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChildFn, GuardResult, MaybeAsync, Router, RouterStateSnapshot } from '@angular/router';
 import { ClientService } from '../services/client.service';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private clientService: ClientService) { }
+  constructor(private router: Router, private clientService: ClientService, private cookieService: CookieService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
     console.log("canActivate")
-    const token = localStorage.getItem("token");
+    const token = this.cookieService.get('token');
+    // const token = localStorage.getItem("token");
     if (!token) {
       console.log(token);
       console.log("if")
@@ -25,7 +27,8 @@ export class AuthGuard implements CanActivate {
           return true;
         },
         error: (error) => {
-          localStorage.removeItem("token");
+          this.cookieService.delete('token');
+          // localStorage.removeItem("token");
           this.router.navigate(['/auth/login']);
           return false;
         }

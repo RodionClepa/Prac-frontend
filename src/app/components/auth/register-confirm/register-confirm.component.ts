@@ -5,11 +5,13 @@ import { ContentPageComponent } from '../shared/content-page/content-page.compon
 import { AuthService } from '../../../shared/services/auth.service';
 import { first } from 'rxjs';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { environment } from '../../../../environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-register-confirm',
   standalone: true,
-  imports: [ReactiveFormsModule, ContentPageComponent, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register-confirm.component.html',
   styleUrl: './register-confirm.component.scss'
 })
@@ -22,6 +24,7 @@ export class RegisterConfirmComponent {
     private router: Router,
     private fb: NonNullableFormBuilder,
     private authService: AuthService,
+    private cookieService: CookieService,
     @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID to detect where the code is running
   ) {
     this.activatedRoute.queryParams.subscribe((params: any) => {
@@ -35,7 +38,13 @@ export class RegisterConfirmComponent {
         this.authService.register(this.uuid, this.email).subscribe({
           next: (response: any) => {
             console.log(response.token)
-            localStorage.setItem("token", response.token);
+            const isProd = environment.production;
+            if (isProd) {
+              this.cookieService.set('token', response.token, 1, '/', 'your-domain.com', true, 'None');
+            } else {
+              this.cookieService.set('token', response.token, 1, '/');
+            }
+            // localStorage.setItem("token", response.token);
             this.router.navigate(['/user/my-profile']);
           },
           error: (error) => {

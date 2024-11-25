@@ -6,6 +6,8 @@ import { GoogleAuthService } from '../../../shared/services/social-auth/google-a
 import { FacebookAuthService } from '../../../shared/services/social-auth/facebook-auth.service';
 import { AuthService } from '../../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environment';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent {
     public facebookService: FacebookAuthService,
     private fb: NonNullableFormBuilder,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private cookieService: CookieService) {
     this.form = this.fb.group({
       email: this.fb.control('', [Validators.required, Validators.email.bind(Validators)]),
       password: this.fb.control('', [Validators.required.bind(Validators)]),
@@ -39,12 +42,22 @@ export class LoginComponent {
   handleGoogleCredentialResponse(response: any) {
     console.log(response)
     console.log('ID Token:', response.credential);
-    const responsePayload = this.googleService.decodeJwtResponse(response.credential);
-    console.log('Full Name: ' + responsePayload.name);
-    console.log('Given Name: ' + responsePayload.given_name);
-    console.log('Family Name: ' + responsePayload.family_name);
-    console.log("Image URL: " + responsePayload.picture);
-    console.log("Email: " + responsePayload.email);
+    // // const responsePayload = this.googleService.decodeJwtResponse(response.credential);
+    // this.authService.loginSocial(response.credential, this.authMethod).subscribe({
+    //   next: (response) => {
+    //     sessionStorage.setItem(AUTH_LOCAL_TOKEN_KEY, response.token);
+    //     sessionStorage.setItem(AUTH_ROLE, response.role);
+    //     this.router.navigate(["/student/student-dashboard"])
+    //   },
+    //   error: (error) => {
+    //     if (error.status === ErrorStatus.UNAUTHORIZED) {
+    //       this.messageResponse = "Auth.Login.InvalidCredentials";
+    //     }
+
+    //     this.errorResponse = true;
+    //     this.cdr.detectChanges();
+    //   }
+    // });
   }
 
   handleFacebookLogin() {
@@ -60,7 +73,13 @@ export class LoginComponent {
     this.authService.login(email, password).subscribe({
       next: (response: any) => {
         console.log(response.token)
-        localStorage.setItem("token", response.token);
+        const isProd = environment.production;
+        if (isProd) {
+          this.cookieService.set('token', response.token, 1, '/', 'your-domain.com', true, 'None');
+        } else {
+          this.cookieService.set('token', response.token, 1, '/');
+        }
+        // localStorage.setItem("token", response.token);
         this.router.navigate(['/user/my-profile']);
       },
       error: (error) => {
