@@ -2,7 +2,7 @@
   <!-- Profile Section -->
   <div class="profile-section">
     <img src="assets/icons/profile-user.svg" alt="Profile Picture" />
-    <h1>John Doe</h1>
+    <h1>{{username}}</h1>
   </div>
 
   <!-- Account Details Section -->
@@ -10,8 +10,9 @@
     <!-- Personal Information -->
     <div class="details-card">
       <h3>Personal Information</h3>
-      <p>Name: John Doe</p>
-      <p>Email: john.doeexample.com</p>
+      <p>Name: {{username}}</p>
+      <p>Email: {{email}}</p>
+      <p>Method Auth: {{methodAuth}}</p>
     </div>
 
     <!-- Account Settings -->
@@ -29,9 +30,9 @@
         <div class="left-side"><h3>Transaction History</h3></div>
         <div class="right-side"><a [routerLink]="['/user/transactions']">Open Full</a></div>
       </div>
-      <p>Transaction 1: $1000 - 01/10/2024</p>
-      <p>Transaction 2: $500 - 02/15/2024</p>
-      <p>Transaction 3: $250 - 03/01/2024</p>
+        <p *ngFor="let transaction of transactions.slice(0, 3)">
+          Transaction: ${{ transaction.amount }} - {{ transaction.date | date: 'fullDate' }}
+        </p>
     </div>
 
     <!-- <div class="details-card">

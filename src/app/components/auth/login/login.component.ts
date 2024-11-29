@@ -8,6 +8,8 @@ import { AuthService } from '../../../shared/services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment.development';
+import { AuthMethods } from '../shared/types/auth-methods.dictionary';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -41,24 +43,16 @@ export class LoginComponent {
   }
 
   handleGoogleCredentialResponse(response: any) {
-    console.log(response)
-    console.log('ID Token:', response.credential);
-    // // const responsePayload = this.googleService.decodeJwtResponse(response.credential);
-    // this.authService.loginSocial(response.credential, this.authMethod).subscribe({
-    //   next: (response) => {
-    //     sessionStorage.setItem(AUTH_LOCAL_TOKEN_KEY, response.token);
-    //     sessionStorage.setItem(AUTH_ROLE, response.role);
-    //     this.router.navigate(["/student/student-dashboard"])
-    //   },
-    //   error: (error) => {
-    //     if (error.status === ErrorStatus.UNAUTHORIZED) {
-    //       this.messageResponse = "Auth.Login.InvalidCredentials";
-    //     }
-
-    //     this.errorResponse = true;
-    //     this.cdr.detectChanges();
-    //   }
-    // });
+    const token: string = response.credential;
+    this.authService.validateSocialToken(token, AuthMethods.GOOGLE).pipe(first()).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.authService.setLoginParams(response.token)
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   handleFacebookLogin() {

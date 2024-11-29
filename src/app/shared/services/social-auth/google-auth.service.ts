@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GoogleAuthService {
 
-  clientId = '836785604044-nagctm19uq1nhftda934jm20ab39d44f.apps.googleusercontent.com';
+  clientId = '836785604044-fr4j1nd40egsacsod14gnjvahbi306r7.apps.googleusercontent.com';
 
   constructor() { }
 

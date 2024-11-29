@@ -6,6 +6,7 @@
     <p class="transaction-title">{{ transaction.description }}</p>
     <p class="transaction-date">{{ transaction.date | date: 'fullDate' }} at {{ transaction.date | date:'HH:mm' }}</p>
   </div>
-  <button><img src="assets/icons/delete.svg"></button>
+  <button (click)="onDelete()"><img src="assets/icons/delete.svg"></button>
+  <button (click)="onEdit()"><img src="assets/icons/edit.svg"></button>
   <div class="transaction-amount">{{ transaction.amount }} $</div>
 </div>

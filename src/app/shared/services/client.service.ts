@@ -21,6 +21,18 @@ export class ClientService {
     return this.http.post(this.apis.postTransaction(), transaction);
   }
 
+  editProfile(data: any) {
+    return this.http.patch(this.apis.putProfile(), data);
+  }
+
+  putTransaction(transaction: any) {
+    return this.http.patch(this.apis.postTransaction(), transaction);
+  }
+
+  deleteTransaction(id: number) {
+    return this.http.delete(`${this.apis.deleteTransaction()}/${id}`);
+  }
+
   getTransaction() {
     return this.http.get(this.apis.getTransaction(),{
       params: new HttpParams().set("page", 0).set("size", 200).set("sort", 'date,desc')

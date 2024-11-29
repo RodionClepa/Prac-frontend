@@ -43,15 +43,20 @@ export class AddTransactionsComponent {
     });
   }
 
+  response: string = "";
+
   onSubmit(): void {
     console.log(this.transactionForm.valid)
     if (!this.transactionForm.valid) return;
     const transaction: Transaction = this.transactionForm.value;
+    this.response = "Loading";
     this.clientService.postTransaction(transaction).subscribe({
       next: (response) => {
+        this.response = "Successfully Added";
         console.log(response);
       },
       error: (error) => {
+        this.response = "Error";
         console.error(error);
       }
     });

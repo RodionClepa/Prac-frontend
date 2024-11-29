@@ -28,14 +28,22 @@ export class ApisService {
   }
 
   validateToken(): string {
-    return `${this.api()}/api/me`
+    return `/auth/social-login`
   }
 
   getTypes(): string {
     return `${this.api()}/transactions/types`
   }
 
+  putProfile(): string {
+    return `${this.api()}/me`
+  }
+
   postTransaction(): string {
+    return `${this.api()}/transactions`
+  }
+
+  deleteTransaction(): string {
     return `${this.api()}/transactions`
   }
 

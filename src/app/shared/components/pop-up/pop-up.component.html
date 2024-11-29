@@ -1,0 +1,21 @@
+<div class="modal-overlay" (click)="close()">
+  <div
+    class="modal-content"
+    (click)="$event.stopPropagation()"
+    [ngStyle]="{
+      'max-width': maxWidth,
+      width: width,
+      'max-height': maxHeight,
+      height: height,
+      'overflow-x': overflowX,
+      'overflow-y': overflowY
+    }"
+    id="openModal"
+  >
+    <!-- stopPropagation ensures that clicks the modal content do not triger overlay  -->
+    <button class="close-button" (click)="close()">
+      x
+    </button>
+    <ng-content></ng-content>
+  </div>
+</div>

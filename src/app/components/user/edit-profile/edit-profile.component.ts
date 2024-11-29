@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ClientService } from '../../../shared/services/client.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -13,10 +14,9 @@ import { Router } from '@angular/router';
 export class EditProfileComponent {
   editInfoForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private clientService: ClientService, private router: Router) {
     this.editInfoForm = this.formBuilder.group({
       username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -25,7 +25,14 @@ export class EditProfileComponent {
 
   onSubmit(): void {
     if (this.editInfoForm.valid) {
-      console.log('Form Value:', this.editInfoForm.value);
+      this.clientService.editProfile(this.editInfoForm.value).subscribe({
+        next: (response: any) => {
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+      
     } else {
       console.log('Form is invalid');
     }

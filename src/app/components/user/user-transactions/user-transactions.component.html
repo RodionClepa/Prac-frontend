@@ -42,14 +42,134 @@
     @for(transaction of transactions; track $index) {
       @if(selectedCategory === "" || selectedCategory === "all") {
         @if((selectedTransactionType === "all" || selectedTransactionType === "") || (selectedTransactionType === "isExpense" && transaction.isExpense) || (selectedTransactionType === "isProfit" && !transaction.isExpense)) {
-          <app-transaction [transaction]="transaction"></app-transaction>
+          <app-transaction (emitEdit)="openEditPopup($event)" (deleteEmit)="onDelete($event)"   [transaction]="transaction"></app-transaction>
         }
       }
       @else if(selectedCategory === transaction.type) {
         @if((selectedTransactionType === "all" || selectedTransactionType === "") || (selectedTransactionType === "isExpense" && transaction.isExpense) || (selectedTransactionType === "isProfit" && !transaction.isExpense)) {
-          <app-transaction [transaction]="transaction"></app-transaction>
+          <app-transaction (emitEdit)="openEditPopup($event)" (deleteEmit)="onDelete($event)" [transaction]="transaction"></app-transaction>
         }
       }
     }
   </div>
 </div>
+
+<app-pop-up
+  *ngIf="isEditPopupOpen"
+  (closeModal)="isEditPopupOpen = false"
+  [maxWidth]="'auto'"
+  [width]="'auto'"
+  [maxHeight]="'auto'"
+  [height]="'auto'"
+  [overflowY]="'hidden'"
+>
+<div class="edit-container">
+  <div class="transaction-form-container">
+    <h2 class="form-title">Edit Transaction</h2>
+  
+    <form
+      (ngSubmit)="onSubmit()"
+      [formGroup]="transactionForm"
+      class="transaction-form"
+    >
+  
+      <!-- Amount -->
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input
+          id="amount"
+          type="number"
+          formControlName="amount"
+          class="form-control"
+          placeholder="Enter amount"
+          [ngClass]="{
+            'is-invalid':
+              transactionForm.get('amount')?.invalid &&
+              transactionForm.get('amount')?.touched
+          }"
+        />
+        <div
+          class="error-message"
+          *ngIf="
+            transactionForm.get('amount')?.invalid &&
+            transactionForm.get('amount')?.touched
+          "
+        >
+          Amount is required and must be greater than 0.
+        </div>
+      </div>
+  
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          placeholder="Enter description"
+          [ngClass]="{
+            'is-invalid':
+              transactionForm.get('description')?.invalid &&
+              transactionForm.get('description')?.touched
+          }"
+        ></textarea>
+        <div
+          class="error-message"
+          *ngIf="
+            transactionForm.get('amount')?.invalid &&
+            transactionForm.get('amount')?.touched
+          "
+        >
+          Amount is required and must be greater than 0.
+        </div>
+      </div>
+  
+      <!-- Type of Transaction -->
+      <div class="form-group">
+        <label for="type">Transaction Type</label>
+        <select
+          id="type"
+          formControlName="type"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid':
+              transactionForm.get('type')?.invalid &&
+              transactionForm.get('type')?.touched
+          }"
+        >
+          <option value="" disabled>-- Select a Transaction Type --</option>
+          @for(option of options; track $index) {
+            <option [value]="option">{{option}}</option>
+          }
+        </select>
+        <div
+          class="error-message"
+          *ngIf="
+            transactionForm.get('type')?.invalid &&
+            transactionForm.get('type')?.touched
+          "
+        >
+          Transaction type is required.
+        </div>
+      </div>
+  
+      <!-- Spending or Adding -->
+      <div class="form-group form-checkbox">
+        <input id="isExpense" type="checkbox" formControlName="isExpense" />
+        <label for="isExpense">This is a spending</label>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="form-group">
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="transactionForm.invalid"
+        >
+          Add Transaction
+        </button>
+      </div>
+    </form>
+  </div>  
+</div>
+</app-pop-up>

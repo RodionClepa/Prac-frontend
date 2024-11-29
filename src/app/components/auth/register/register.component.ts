@@ -67,8 +67,9 @@ export class RegisterComponent {
   handleGoogleCredentialResponse(response: any) {
     const token: string = response.credential;
     this.authService.validateSocialToken(token, AuthMethods.GOOGLE).pipe(first()).subscribe({
-      next: (response) => {
-        this.authService.setLoginParams(response as string)
+      next: (response: any) => {
+        console.log(response);
+        this.authService.setLoginParams(response.token)
       },
       error: (error) => {
         console.error(error);

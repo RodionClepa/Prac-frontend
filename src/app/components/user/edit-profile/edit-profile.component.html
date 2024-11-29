@@ -18,24 +18,6 @@
         </div>
       </div>
 
-      <div class="field">
-        <label for="email">E-mail address</label>
-        <input type="email" id="email" formControlName="email" required />
-        <div
-          *ngIf="
-            editInfoForm.get('email')?.invalid &&
-            editInfoForm.get('email')?.touched
-          "
-        >
-          <small *ngIf="editInfoForm.get('email')?.errors?.['required']"
-            >Email is required.</small
-          >
-          <small *ngIf="editInfoForm.get('email')?.errors?.['email']"
-            >Invalid email format.</small
-          >
-        </div>
-      </div>
-
       <div class="actions">
         <button type="submit">Save Changes</button>
         <button type="button" (click)="goBack()">Cancel</button>

@@ -22,8 +22,9 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.clientService.getProfile().subscribe({
-      next: (response) => {
+      next: (response: any) => {
         console.log(response);
+        this.userName = response.username;
       },
       error: (error) => {
         console.error(error);
