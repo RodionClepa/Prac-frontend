@@ -1,19 +1,55 @@
 <div class="background-container">
   <!-- Card Section -->
-  <div class="card-section">
+  <!-- <div class="card-section">
     <img
       src="assets/images/card-image.png"
       alt="Card Image"
       class="card-image"
     />
     <button class="card-info-button">See info about your Card</button>
-  </div>
+  </div> -->
 
   <!-- Transactions Section -->
   <div class="transactions-section">
     <h2 class="transactions-title">My Transactions</h2>
 
+    <div class="options-wrapper">
+      <select
+        id="type"
+        [(ngModel)]="selectedCategory"
+        (change)="onCategoryChange()"
+      >
+        <option value="" disabled>-- Select Category --</option>
+        <option value="all">All</option>
+        @for(option of options; track $index) {
+        <option [value]="option">{{ option }}</option>
+        }
+      </select>
+
+      <select
+        id="type"
+        [(ngModel)]="selectedTransactionType"
+        (change)="onTransactionTypeChange()"
+      >
+        <option value="" disabled>-- Select a Transaction Type --</option>
+        <option value="all">All</option>
+        <option value="isExpense">Is Expense</option>
+        <option value="isProfit">Is Profit</option>
+      </select>
+    </div>
+
     <!-- Transaction Item -->
-    <app-transaction></app-transaction>
+    @for(transaction of transactions; track $index) {
+      @if(selectedCategory === "" || selectedCategory === "all") {
+        @if((selectedTransactionType === "all" || selectedTransactionType === "") || (selectedTransactionType === "isExpense" && transaction.isExpense) || (selectedTransactionType === "isProfit" && !transaction.isExpense)) {
+          <app-transaction [transaction]="transaction"></app-transaction>
+        }
+      }
+      @else if(selectedCategory === transaction.type) {
+        @if((selectedTransactionType === "all" || selectedTransactionType === "") || (selectedTransactionType === "isExpense" && transaction.isExpense) || (selectedTransactionType === "isProfit" && !transaction.isExpense)) {
+          <app-transaction [transaction]="transaction"></app-transaction>
+        }
+      }
+    }
   </div>
 </div>

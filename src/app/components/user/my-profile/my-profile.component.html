@@ -34,7 +34,7 @@
       <p>Transaction 3: $250 - 03/01/2024</p>
     </div>
 
-    <div class="details-card">
+    <!-- <div class="details-card">
       <div class="top-container">
         <div class="left-side"><h3>My cards</h3></div>
         <div class="right-side"><a>Open Full</a></div>
@@ -42,12 +42,12 @@
       <p>Card 4542</p>
       <p>Card 3414</p>
       <p>Card 3114</p>
-    </div>
+    </div> -->
   </div>
 
   <!-- Action Buttons -->
   <div class="action-buttons">
     <a class="btn" [routerLink]="['/user/edit-profile']">Edit Profile</a>
-    <a class="btn">Logout</a>
+    <a class="btn" (click)="clickLogout()">Logout</a>
   </div>
 </div>

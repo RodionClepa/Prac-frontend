@@ -24,6 +24,7 @@
     />
 
     <div class="wrap">
+      <span>{{userMessage}}</span>
       <button type="submit" [disabled]="!form.valid">Login</button>
     </div>
   </form>
@@ -40,7 +41,7 @@
     </button>
     <p class="login-option">
       Don't have an account?
-      <a href="#" style="text-decoration: none"> Sign up here </a>
+      <a [routerLink]="['/auth', 'register']" style="text-decoration: none"> Sign up here </a>
     </p>
   </div>
 </app-content-page>

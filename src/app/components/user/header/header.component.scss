@@ -1,110 +1,104 @@
-/* Header */
 .header {
-  position: relative; /* Required for absolute positioning of child elements */
-  background-color: rgba(73, 169, 129, 1); /* Green background */
+  position: relative;
+  background-color: rgba(73, 169, 129, 1);
   width: 100%;
   height: 100px;
-  padding: 10px 15px; /* Adjusted padding for better responsiveness */
-  box-sizing: border-box; /* Include padding in the width calculation */
+  padding: 10px 15px;
+  box-sizing: border-box;
   display: flex;
-  align-items: center; /* Center vertically */
+  align-items: center;
 }
-
-/* Logo Container */
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the logo inside the container */
-  flex-grow: 1; /* Ensure it takes up remaining space */
+  justify-content: center;
+  flex-grow: 1;
 }
-
 .logo-container img {
-  width: 20vw; /* Responsive size based on viewport width */
-  max-width: 100px; /* Maximum size */
-  min-width: 100px; /* Minimum size */
+  width: 20vw;
+  max-width: 100px;
+  min-width: 100px;
   height: auto;
 }
-
-/* Notification Button */
 .notification-button {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  position: absolute; /* Absolute positioning within the header */
-  top: 10px; /* Distance from the top */
-  right: 15px; /* Adjusted right position */
+  position: absolute;
+  top: 10px;
+  right: 15px;
 }
-
 .notification-button .icon {
-  width: 40px; /* Adjusted width */
-  height: 40px; /* Adjusted height */
+  width: 40px;
+  height: 40px;
 }
-
-/* Wallet Container (Button and Arrow) */
 .wallet-container {
   position: absolute;
   bottom: 10px;
-  right: 10px; /* Adjusted right position */
+  right: 10px;
   display: flex;
   gap: 8px;
   align-items: center;
-  cursor: pointer; /* Indicate clickable area */
-
+  cursor: pointer;
   a {
     font-size: 12px;
+    text-decoration: inherit;
+    color: white;
+
+    &:hover {
+      color: red;
+    }
+  }
+
+  button {
+    padding: 4px;
+    
+    &:hover {
+      background-color: aliceblue;
+    }
   }
 }
-
-/* Wallet Button */
 .wallet-button {
   background-color: transparent;
   border: none;
-  color: #fffdfd; /* Adjust text color if needed */
-  font-size: 14px; /* Adjust font size for better responsiveness */
+  color: #fffdfd;
+  font-size: 14px;
   font-family: "Inter-Medium", sans-serif;
   cursor: pointer;
   padding-right: 10px;
-  transition: color 0.3s ease; /* Smooth color transition */
+  transition: color 0.3s ease;
 }
-
-/* Hover Effect */
 .wallet-container:hover .arrow-icon {
-  transform: translateX(3px); /* Move the arrow to the right */
+  transform: translateX(3px);
 }
-
 .wallet-container:hover .wallet-button {
-  color: rgb(185, 254, 219); /* Change button text color on hover */
+  color: rgb(185, 254, 219);
 }
-
 .wallet-button {
-  font-size: 14px; /* Adjust font size for smaller screens */
+  font-size: 14px;
 }
-
-/* Arrow Icon */
 .arrow-icon {
-  width: 18px; /* Adjusted width */
-  height: 18px; /* Adjusted height */
+  width: 18px;
+  height: 18px;
   margin-left: 2px;
-  transition: transform 0.3s ease; /* Smooth transition for movement */
+  transition: transform 0.3s ease;
 }
-
 .profile-container {
-    cursor: pointer;
-    img {
-        width: 50px;
-        height: 50px;
-    }
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  img {
+    width: 50px;
+    height: 50px;
+  }
 }
-
-/* Responsive Design: Adjustments for mobile */
 @media only screen and (max-width: 430px) {
   .header {
-    height: 100px; /* Adjust height for smaller screens */
-    padding: 10px 10px; /* Adjust padding */
+    height: 100px;
+    padding: 10px 10px;
   }
-
   .logo-container img {
     width: 35vw;
-    max-width: 200 px; /* Adjust for smaller screens */
+    max-width: 200 px;
   }
 }

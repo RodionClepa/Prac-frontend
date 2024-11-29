@@ -2,6 +2,7 @@
 <div class="header">
     <div class="profile-container" [routerLink]="['/user/my-profile']">
         <img src="assets/icons/profile-user.svg" alt="Profile Icon" />
+        <span>{{userName}}</span>
     </div>
   <div class="logo-container">
     <img src="assets/images/logo.png" alt="Logo" class="logo" />
@@ -9,20 +10,12 @@
 
   <!-- Wallet Container (Button and Arrow) -->
   <div class="wallet-container">
-    <a [routerLink]="['/user', 'add-card']">Add Card</a>
+    <!-- <a [routerLink]="['/user', 'add-card']">Add Card</a> -->
     <a [routerLink]="['/user', 'transactions']">Transactions</a>
+    <a [routerLink]="['/user', 'add-transaction']">Add Transaction</a>
     <a [routerLink]="['/user', 'my-profile']">My Profile</a>
     <a [routerLink]="['/user', 'edit-profile']">Edit Profile</a>
-    <a [routerLink]="['/user', 'add-transaction']">Add Transaction</a>
-    <img src="assets/images/arrow-right.png" alt="Arrow" class="arrow-icon" />
+    <button (click)="clickLogout()">Logout</button>
   </div>
 
-  <!-- Notification Icon as a Button -->
-  <button class="notification-button">
-    <img
-      src="assets/images/notification-icon.png"
-      alt="Notification"
-      class="icon"
-    />
-  </button>
 </div>

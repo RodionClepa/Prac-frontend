@@ -8,11 +8,11 @@ export class ApisService {
   constructor() { }
 
   private api(): string {
-    return 'http://localhost:8080';
+    return "/api";
   }
 
   private auth(): string {
-    return `${this.api()}/auth`;
+    return `/auth`;
   }
 
   login(): string {
@@ -29,5 +29,21 @@ export class ApisService {
 
   validateToken(): string {
     return `${this.api()}/api/me`
+  }
+
+  getTypes(): string {
+    return `${this.api()}/transactions/types`
+  }
+
+  postTransaction(): string {
+    return `${this.api()}/transactions`
+  }
+
+  getTransaction(): string {
+    return `${this.api()}/transactions`
+  }
+
+  getMe(): string {
+    return `${this.api()}/me`
   }
 }

@@ -7,11 +7,12 @@ import { ContentPageComponent } from "../shared/content-page/content-page.compon
 import { AuthService } from '../../../shared/services/auth.service';
 import { first } from 'rxjs';
 import { AuthMethods } from '../shared/types/auth-methods.dictionary';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, ContentPageComponent, CommonModule],
+  imports: [ReactiveFormsModule, ContentPageComponent, CommonModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

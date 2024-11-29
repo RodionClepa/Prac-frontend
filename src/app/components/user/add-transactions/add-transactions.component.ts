@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ClientService } from '../../../shared/services/client.service';
 
 export interface Transaction {
-  cardId: string;
-  amount: number;
-  date: string;
-  type: string;  // e.g., 'Groceries', 'Netflix', 'Spotify', 'Payday'
-  isSpending: boolean;
+  isExpense: boolean;
+  type: string;
+  amount : number;
+  description: string;
 }
 
 @Component({
@@ -19,30 +19,41 @@ export interface Transaction {
 })
 export class AddTransactionsComponent {
   transactionForm: FormGroup;
-  cards = [
-    { id: '1', displayName: 'Visa ****1234' },
-    { id: '2', displayName: 'Mastercard ****5678' },
-  ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private clientService: ClientService) {
     this.transactionForm = this.fb.group({
-      cardId: ['', Validators.required],
       amount: ['', [Validators.required, Validators.min(0.01)]],
-      date: ['', Validators.required],
+      description: [''],
       type: ['', Validators.required],
-      isSpending: [true],
+      isExpense: [true],
     });
-   }
+  }
+
+  options: any = []
 
   ngOnInit(): void {
-    
+    this.clientService.getTypes().subscribe({
+      next: (response) => {
+        console.log(response);
+        this.options = response;
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 
   onSubmit(): void {
-    if (this.transactionForm.valid) {
-      const transaction: Transaction = this.transactionForm.value;
-      console.log('New transaction added:', transaction);
-      // Handle form submission logic, e.g., sending data to backend or state management
-    }
+    console.log(this.transactionForm.valid)
+    if (!this.transactionForm.valid) return;
+    const transaction: Transaction = this.transactionForm.value;
+    this.clientService.postTransaction(transaction).subscribe({
+      next: (response) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.error(error);
+      }
+    });
   }
 }

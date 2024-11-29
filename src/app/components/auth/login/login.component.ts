@@ -5,19 +5,20 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { GoogleAuthService } from '../../../shared/services/social-auth/google-auth.service';
 import { FacebookAuthService } from '../../../shared/services/social-auth/facebook-auth.service';
 import { AuthService } from '../../../shared/services/auth.service';
-import { Router } from '@angular/router';
-import { environment } from '../../../../environment';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ContentPageComponent, ReactiveFormsModule],
+  imports: [ContentPageComponent, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   form: FormGroup;
+  userMessage: string = "";
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
     public googleService: GoogleAuthService,
@@ -70,6 +71,7 @@ export class LoginComponent {
     }
     console.log(this.form.getRawValue());
     const { email, password } = this.form.getRawValue();
+    this.userMessage = "Loading...";
     this.authService.login(email, password).subscribe({
       next: (response: any) => {
         console.log(response.token)
@@ -79,11 +81,13 @@ export class LoginComponent {
         } else {
           this.cookieService.set('token', response.token, 1, '/');
         }
+        this.userMessage = "Redirecting to home";
         // localStorage.setItem("token", response.token);
         this.router.navigate(['/user/my-profile']);
       },
       error: (error) => {
         console.error(error);
+        if (error.status === 404) this.userMessage = "Invalid Data"
       }
     });
   }

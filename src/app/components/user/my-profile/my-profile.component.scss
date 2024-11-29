@@ -16,7 +16,7 @@
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  border: 5px solid #ffd700; /* Gold border */
+  border: 5px solid #ffd700;
 }
 
 .profile-section h1 {
@@ -30,7 +30,6 @@
   color: #555;
 }
 
-/* Account details */
 .details-section {
   display: flex;
   justify-content: space-between;
@@ -72,7 +71,6 @@
   margin-bottom: 10px;
 }
 
-/* Buttons */
 .action-buttons {
   display: flex;
   gap: 16px;

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-my-profile',
@@ -9,5 +10,10 @@ import { RouterLink } from '@angular/router';
   styleUrl: './my-profile.component.scss'
 })
 export class MyProfileComponent {
+  constructor(private cookieService: CookieService, private router: Router) {}
 
+  clickLogout() {
+    this.cookieService.delete("token");
+    this.router.navigate(['/auth/login']);
+  }
 }

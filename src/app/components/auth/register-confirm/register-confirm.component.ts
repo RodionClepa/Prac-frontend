@@ -1,12 +1,10 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
-import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ContentPageComponent } from '../shared/content-page/content-page.component';
 import { AuthService } from '../../../shared/services/auth.service';
-import { first } from 'rxjs';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { environment } from '../../../../environment';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-register-confirm',

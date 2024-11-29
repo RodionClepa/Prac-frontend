@@ -1,15 +1,18 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 export interface Transaction {
-  title: string;
+  description: string;
   date: string;
   amount: number;
+  isExpense: boolean;
+  type: string;
 }
 
 @Component({
   selector: 'app-transaction',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './transaction.component.html',
   styleUrl: './transaction.component.scss'
 })

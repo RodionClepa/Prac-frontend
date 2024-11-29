@@ -6,34 +6,6 @@
     [formGroup]="transactionForm"
     class="transaction-form"
   >
-    <!-- Select Card -->
-    <div class="form-group">
-      <label for="card">Select Card</label>
-      <select
-        id="card"
-        formControlName="cardId"
-        class="form-control"
-        [ngClass]="{
-          'is-invalid':
-            transactionForm.get('cardId')?.invalid &&
-            transactionForm.get('cardId')?.touched
-        }"
-      >
-        <option value="">-- Select a Card --</option>
-        <option *ngFor="let card of cards" [value]="card.id">
-          {{ card.displayName }}
-        </option>
-      </select>
-      <div
-        class="error-message"
-        *ngIf="
-          transactionForm.get('cardId')?.invalid &&
-          transactionForm.get('cardId')?.touched
-        "
-      >
-        Card is required.
-      </div>
-    </div>
 
     <!-- Amount -->
     <div class="form-group">
@@ -61,28 +33,28 @@
       </div>
     </div>
 
-    <!-- Date -->
+    <!-- Description -->
     <div class="form-group">
-      <label for="date">Date</label>
-      <input
-        id="date"
-        type="date"
-        formControlName="date"
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        formControlName="description"
         class="form-control"
+        placeholder="Enter description"
         [ngClass]="{
           'is-invalid':
-            transactionForm.get('date')?.invalid &&
-            transactionForm.get('date')?.touched
+            transactionForm.get('description')?.invalid &&
+            transactionForm.get('description')?.touched
         }"
-      />
+      ></textarea>
       <div
         class="error-message"
         *ngIf="
-          transactionForm.get('date')?.invalid &&
-          transactionForm.get('date')?.touched
+          transactionForm.get('amount')?.invalid &&
+          transactionForm.get('amount')?.touched
         "
       >
-        Date is required.
+        Amount is required and must be greater than 0.
       </div>
     </div>
 
@@ -99,11 +71,10 @@
             transactionForm.get('type')?.touched
         }"
       >
-        <option value="">-- Select a Transaction Type --</option>
-        <option value="Groceries">Groceries</option>
-        <option value="Netflix">Netflix</option>
-        <option value="Spotify">Spotify</option>
-        <option value="Payday">Payday</option>
+        <option value="" disabled>-- Select a Transaction Type --</option>
+        @for(option of options; track $index) {
+          <option [value]="option">{{option}}</option>
+        }
       </select>
       <div
         class="error-message"
@@ -118,8 +89,8 @@
 
     <!-- Spending or Adding -->
     <div class="form-group form-checkbox">
-      <input id="isSpending" type="checkbox" formControlName="isSpending" />
-      <label for="isSpending">This is a spending</label>
+      <input id="isExpense" type="checkbox" formControlName="isExpense" />
+      <label for="isExpense">This is a spending</label>
     </div>
 
     <!-- Submit Button -->

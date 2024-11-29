@@ -1,163 +1,135 @@
-/* Ensure container takes full height */
 .background-container {
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(235, 255, 245, 1); /* Light green */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow-x: hidden; /* Prevent overflow in flex container */
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(235, 255, 245, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
 }
-
-/* Card Section */
 .card-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
 }
-
 .card-image {
-    width: 90%;
-    max-width: 300px; /* Adjusted maximum width */
-    border-radius: 10px;
+  width: 90%;
+  max-width: 300px;
+  border-radius: 10px;
 }
-
-/* Card Info Button */
 .card-info-button {
-    background-color: transparent;
-    border: 2px solid rgba(73, 169, 129, 1); /* Border color */
-    color: rgba(73, 169, 129, 1); /* Text color */
-    font-size: 14px; /* Adjusted font size */
-    font-family: 'Inter-Medium', sans-serif;
-    cursor: pointer;
-    padding: 8px 16px; /* Adjusted padding */
-    border-radius: 25px;
-    text-align: center;
-    margin-top: 10px;
-    text-decoration: none; /* Remove underline if any */
-    display: inline-block;
+  background-color: transparent;
+  border: 2px solid rgba(73, 169, 129, 1);
+  color: rgba(73, 169, 129, 1);
+  font-size: 14px;
+  font-family: "Inter-Medium", sans-serif;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 25px;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  display: inline-block;
 }
-
 .card-info-button:hover {
-    background-color: rgb(185, 254, 219); /* Light background on hover */
+  background-color: rgb(185, 254, 219);
 }
-
-/* Transactions Section */
 .transactions-section {
-    padding: 15px; /* Adjusted padding */
-    width: 100%;
-    max-height: 500px;
-    overflow-y: auto; /* Enable vertical scrolling */
-    scroll-behavior: smooth;
+  padding: 15px;
+  width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
-
 .transactions-section::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
-
 .transactions-section::-webkit-scrollbar-thumb {
-    background-color: rgba(73, 169, 129, 1); /* Match the theme */
-    border-radius: 10px;
+  background-color: rgba(73, 169, 129, 1);
+  border-radius: 10px;
 }
-
 .transactions-title {
-    font-size: 18px;
-    color: black;
-    margin-left: 10px; /* Adjusted margin */
+  font-size: 18px;
+  color: black;
+  margin-left: 10px;
 }
-
-/* Transaction Item */
 .transaction-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: rgba(73, 169, 129, 1);
-    border-radius: 30px;
-    padding: 10px;
-    margin-bottom: 15px;
-    margin-left: 10px; /* Adjusted margin */
-    margin-right: 10px; /* Adjusted margin */
-    box-sizing: border-box; /* Include padding in the width calculation */
-}
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(73, 169, 129, 1);
+  border-radius: 30px;
+  padding: 10px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
+  box-sizing: border-box;
 
-/* Transaction Details */
+  &.expense {
+    background-color: #ff4d4d;
+  }
+}
 .transaction-details {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    margin-left: 10px; /* Adjust margin if needed */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
-
-/* Transaction Title */
 .transaction-title {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
 }
-
-/* Transaction Date */
 .transaction-date {
-    color: white;
-    font-size: 12px;
-    margin-top: 2px; /* Adjust space between title and date */
+  color: white;
+  font-size: 12px;
+  margin-top: 2px;
 }
-
-/* Transaction Icon */
 .transaction-icon {
-    width: 60px; /* Adjusted width */
-    height: 60px; /* Adjusted height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: white;
-    overflow: hidden;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  overflow: hidden;
 }
-
-/* Transaction Icon Image */
 .transaction-icon img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
-
-/* Transaction Amount */
 .transaction-amount {
-    color: white;
-    font-size: 16px; /* Adjusted font size */
-    font-weight: bold;
-    border: 1px solid white;
-    border-radius: 25px;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 80px; /* Ensure consistent size */
-    text-align: center; /* Center text within the amount container */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  text-align: center;
 }
-
-/* Responsive Design: Adjustments for mobile */
 @media only screen and (max-width: 430px) {
-
-    .card-image {
-        width: 85%;
-    }
-
-    .transaction-icon {
-        width: 50px;
-        height: 50px;
-    }
-
-    .transaction-amount {
-        font-size: 14px;
-        padding: 4px 8px;
-        min-width: 70px; /* Adjust for smaller screens */
-    }
-
-    .transactions-title {
-        font-size: 14px; /* Adjust font size for smaller screens */
-    }
+  .card-image {
+    width: 85%;
+  }
+  .transaction-icon {
+    width: 50px;
+    height: 50px;
+  }
+  .transaction-amount {
+    font-size: 14px;
+    padding: 4px 8px;
+    min-width: 70px;
+  }
+  .transactions-title {
+    font-size: 14px;
+  }
 }

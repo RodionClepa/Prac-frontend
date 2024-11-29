@@ -4,7 +4,7 @@ import { ApisService } from './apis.service';
 import { AuthMethods } from '../../components/auth/shared/types/auth-methods.dictionary';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { environment } from '../../../environment';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'

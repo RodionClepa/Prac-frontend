@@ -1,10 +1,11 @@
-<div class="transaction-item">
+<div class="transaction-item" [ngClass]="{'expense': transaction.isExpense}">
   <div class="transaction-icon">
-    <img src="assets/images/amazon-logo.png" [alt]="transaction.title + ' Logo'" />
+    <img [src]="'assets/icons/'+transaction.type+'.svg'" [alt]="transaction.type + ' Logo'" />
   </div>
   <div class="transaction-details">
-    <p class="transaction-title">{{ transaction.title }}</p>
-    <p class="transaction-date">{{ transaction.date }}</p>
+    <p class="transaction-title">{{ transaction.description }}</p>
+    <p class="transaction-date">{{ transaction.date | date: 'fullDate' }} at {{ transaction.date | date:'HH:mm' }}</p>
   </div>
+  <button><img src="assets/icons/delete.svg"></button>
   <div class="transaction-amount">{{ transaction.amount }} $</div>
 </div>
